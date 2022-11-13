@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class GameSpeedMagnifier : MonoBehaviour
 {
-    [SerializeField] private int _speedLimit;
-    [SerializeField] private int _addedNumber = 10;
-    [SerializeField] private int _speedIncreaseTransition = 10;
+    [SerializeField] private float _speedLimit;
+    [SerializeField] private float _addedNumber;
+    [SerializeField] private float _speedIncreaseTransition;
 
     private void Start()
     {
@@ -14,7 +14,7 @@ public class GameSpeedMagnifier : MonoBehaviour
 
     private IEnumerator Timer()
     {
-        while (Mover.Speed < _speedLimit)
+        while (ObjectMover.Speed < _speedLimit)
         {
             yield return new WaitForSeconds(_speedIncreaseTransition);
             IncreaseSpeed();
@@ -23,6 +23,6 @@ public class GameSpeedMagnifier : MonoBehaviour
 
     private void IncreaseSpeed()
     {
-        Mover.Speed += _addedNumber;
+        ObjectMover.Speed += _addedNumber;
     }
 }

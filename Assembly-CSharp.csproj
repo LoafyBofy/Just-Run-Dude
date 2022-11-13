@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{0699757D-C0CE-0F1C-56F5-466590DB0B4E}</ProjectGuid>
+    <ProjectGuid>{C4467EC0-C334-16E6-2CA2-9919668B0F99}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -57,16 +57,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scipts\FinalBoard.cs" />
-    <Compile Include="Assets\Scipts\Switcher.cs" />
+    <Compile Include="Assets\Scipts\GameSpeedMagnifier.cs" />
+    <Compile Include="Assets\Scipts\Menu.cs" />
+    <Compile Include="Assets\Scipts\ObjectDisabler.cs" />
+    <Compile Include="Assets\Scipts\ActivatePauseBoard.cs" />
     <Compile Include="Assets\Scipts\Score.cs" />
-    <Compile Include="Assets\Scipts\Mover.cs" />
+    <Compile Include="Assets\Scipts\ObjectMover.cs" />
     <Compile Include="Assets\Scipts\BarrierSpawner.cs" />
     <Compile Include="Assets\Scipts\Coins.cs" />
     <Compile Include="Assets\Scipts\Reposition.cs" />
-    <Compile Include="Assets\Scipts\PlayerController.cs" />
-    <Compile Include="Assets\Scipts\Menu.cs" />
-    <Compile Include="Assets\Scipts\ActivatePauseBoard.cs" />
-    <Compile Include="Assets\Scipts\GameSpeedMagnifier.cs" />
+    <Compile Include="Assets\Scipts\PlayerMovements.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
