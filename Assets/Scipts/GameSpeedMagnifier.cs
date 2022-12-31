@@ -14,7 +14,7 @@ public class GameSpeedMagnifier : MonoBehaviour
 
     private IEnumerator Timer()
     {
-        while (ObjectMover.Speed < _speedLimit)
+        while (Parallax.Speed < _speedLimit)
         {
             yield return new WaitForSeconds(_speedIncreaseTransition);
             IncreaseSpeed();
@@ -23,6 +23,7 @@ public class GameSpeedMagnifier : MonoBehaviour
 
     private void IncreaseSpeed()
     {
+        Parallax.Speed += _addedNumber;
         ObjectMover.Speed += _addedNumber;
     }
 }

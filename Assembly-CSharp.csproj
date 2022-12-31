@@ -64,8 +64,8 @@
     <Compile Include="Assets\Scipts\Score.cs" />
     <Compile Include="Assets\Scipts\ObjectMover.cs" />
     <Compile Include="Assets\Scipts\BarrierSpawner.cs" />
-    <Compile Include="Assets\Scipts\Coins.cs" />
-    <Compile Include="Assets\Scipts\Reposition.cs" />
+    <Compile Include="Assets\Scipts\Pumpkin.cs" />
+    <Compile Include="Assets\Scipts\Parallax.cs" />
     <Compile Include="Assets\Scipts\PlayerMovements.cs" />
   </ItemGroup>
   <ItemGroup>

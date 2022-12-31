@@ -34,5 +34,5 @@ public class Menu : MonoBehaviour
 
     private void SetCurrentScoreZero() => Score.CurrentScore = 0;
 
-    private void SetCurrentCoinsZero() => Coins.CoinsCount = 0;
+    private void SetCurrentCoinsZero() => Pumpkin.PumpkinCount = 0;
 }

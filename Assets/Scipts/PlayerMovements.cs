@@ -1,49 +1,36 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PlayerMovements : MonoBehaviour
+public class PlayerMovements : MonoBehaviour, IBeginDragHandler, IDragHandler
 {
-    [Header("Size")]
-    [SerializeField] private float _littleSizeX;
-    [SerializeField] private float _littleSizeY;
-    [SerializeField] private float _normalSizeX;
-    [SerializeField] private float _normalSizeY;
-
+    [SerializeField] private GameObject _player;
     [Header("Curves")]
     [SerializeField] private AnimationCurve _jumpCurve;
     [SerializeField] private AnimationCurve _dashCurve;
     [SerializeField] private AnimationCurve _rollCurve;
+    [SerializeField] private float _animationDuration;
+    [Header("Animator")]
+    [SerializeField] private Animator _animator;
 
     private float currentTime;
     private bool _isJump = false;
     private bool _isDash = false;
     private bool _isRoll = false;
-    
-    private void Update()
+
+    private void Start()
     {
-        CheckCurrentState();
-        CheckCurrentTime();
-
-        if (Input.touchCount > 0)
-            Swipe();
-
-        // Ќужно чисто дл€ теста (удалить при финальной сборке!)
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-            Jump();
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            Dash();
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-            Roll();
+        _animator = _player.GetComponent<Animator>();
     }
 
-    private void Swipe()
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        Vector2 delta = Input.GetTouch(0).deltaPosition;
-
-        if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y)) // Horizontal
+        if (Mathf.Abs(eventData.delta.x) > Mathf.Abs(eventData.delta.y)) // Horizontal
         {
-            if (delta.x > 0) // right
+            if (eventData.delta.x > 0) // right
             {
                 Dash();
+                _animator.SetBool("isRun", false);
+                _animator.SetBool("isJump", true);
             }
             //else // left
             //{
@@ -52,14 +39,47 @@ public class PlayerMovements : MonoBehaviour
         }
         else // Vertical
         {
-            if (delta.y > 0) // up
+            if (eventData.delta.y > 0) // up
             {
                 Jump();
+                _animator.SetBool("isRun", false);
+                _animator.SetBool("isJump", true);
             }
             else // down
             {
                 Roll();
+                _animator.SetBool("isRun", false);
+                _animator.SetBool("isRoll", true);
             }
+        }
+    }
+
+    private void Update()
+    {
+        InputController();
+        CheckCurrentState();
+        CheckCurrentTime();
+    }
+
+    private void InputController()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Jump();
+            _animator.SetBool("isRun", false);
+            _animator.SetBool("isJump", true);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            Dash();
+            _animator.SetBool("isRun", false);
+            _animator.SetBool("isJump", true);
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Roll();
+            _animator.SetBool("isRun", false);
+            _animator.SetBool("isRoll", true);
         }
     }
 
@@ -68,30 +88,37 @@ public class PlayerMovements : MonoBehaviour
         if (_isJump == true)
         {
             currentTime += Time.deltaTime;
-            transform.position = new Vector2(transform.position.x, _jumpCurve.Evaluate(currentTime));
+            _player.transform.position = new Vector2(_player.transform.position.x, _jumpCurve.Evaluate(currentTime));
         }
         if (_isDash == true)
         {
             currentTime += Time.deltaTime;
-            transform.position = new Vector2(transform.position.x, _dashCurve.Evaluate(currentTime));
+            _player.transform.position = new Vector2(_player.transform.position.x, _dashCurve.Evaluate(currentTime));
         }
         if (_isRoll == true)
         {
             currentTime += Time.deltaTime;
-            transform.position = new Vector2(transform.position.x, _rollCurve.Evaluate(currentTime));
+            _player.transform.position = new Vector2(_player.transform.position.x, _rollCurve.Evaluate(currentTime));
         }
     }
 
     private void CheckCurrentTime()
     {
-        if (currentTime >= 1)
+        if (currentTime >= _animationDuration)
         {
             currentTime = 0;
             _isJump = false;
             _isDash = false;
             _isRoll = false;
-            SetNormalScale();
+            SetRunAnimation();
         }
+    }
+
+    private void SetRunAnimation()
+    {
+        _animator.SetBool("isJump", false);
+        _animator.SetBool("isRoll", false);
+        _animator.SetBool("isRun", true);
     }
 
     public void Jump()
@@ -99,7 +126,6 @@ public class PlayerMovements : MonoBehaviour
         if (_isJump == false && _isDash == false && _isRoll == false)
         {
             _isJump = true;
-            SetLittleScale();
         }
     }
 
@@ -108,7 +134,6 @@ public class PlayerMovements : MonoBehaviour
         if (_isJump == false && _isDash == false && _isRoll == false)
         {
             _isDash = true;
-            SetLittleScale();
         }
     }
 
@@ -117,13 +142,12 @@ public class PlayerMovements : MonoBehaviour
         if (_isJump == false && _isDash == false && _isRoll == false)
         {
             _isRoll = true;
-            SetLittleScale();
         }
     }
 
-    private void SetLittleScale() => transform.localScale = new Vector2(_littleSizeX, _littleSizeY);
-
-    private void SetNormalScale() => transform.localScale = new Vector2(_normalSizeX, _normalSizeY);
+    public void OnDrag(PointerEventData eventData) // оно просто существует, так нада!
+    {
+    }
 }
 
 

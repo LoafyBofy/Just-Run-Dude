@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ObjectMover : MonoBehaviour
 {
-    static private float _speed = 5;
+    static private float _speed = 350;
 
     static public float Speed
     {
@@ -10,9 +10,20 @@ public class ObjectMover : MonoBehaviour
         set { _speed = value; }
     }
 
-    private void Update()
+    Rigidbody2D rg;
+    private void Start()
     {
-        transform.Translate(new Vector2(-_speed * Time.deltaTime, 0));
+        rg = GetComponent<Rigidbody2D>();
     }
+
+    private void FixedUpdate()
+    {
+        rg.velocity = new Vector2(-_speed * Time.fixedDeltaTime, 0);
+    }
+
+    //private void Update()
+    //{
+    //    transform.Translate(new Vector2(-_speed * Time.deltaTime, 0));
+    //}
 }
 
