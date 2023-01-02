@@ -7,6 +7,7 @@ TagManager:
   - Barrier
   - Switcher
   - Pumpkin
+  - MagicBarrier
   layers:
   - Default
   - TransparentFX

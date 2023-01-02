@@ -18,16 +18,33 @@ public class BarrierSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(_spawnDelay);
             int _randomValue = Random.Range(0, _barriers.Length);
-            if (_barriers[_randomValue].activeSelf == false)
+
+            while (_barriers[_randomValue].activeSelf == true)
+                _randomValue = Random.Range(0, _barriers.Length);
+
+            _barriers[_randomValue].gameObject.SetActive(true);
+            for (int i = 0; i < _barriers[_randomValue].transform.childCount; i++)
             {
-                _barriers[_randomValue].gameObject.SetActive(true);
-                for (int i = 0; i < _barriers[_randomValue].transform.childCount; i++)
-                {
-                    Transform child = _barriers[_randomValue].transform.GetChild(i);
-                    child.gameObject.SetActive(true);
-                }
-                _barriers[_randomValue].transform.position = new Vector2(_startPositionX, _barriers[_randomValue].transform.position.y);
+                Transform child = _barriers[_randomValue].transform.GetChild(i);
+                child.gameObject.SetActive(true);
             }
+            _barriers[_randomValue].transform.position = new Vector2(_startPositionX, _barriers[_randomValue].transform.position.y);
         }
     }
 }
+
+//while (true)
+//{
+//    yield return new WaitForSeconds(_spawnDelay);
+//    int _randomValue = Random.Range(0, _barriers.Length);
+//    if (_barriers[_randomValue].activeSelf == false)
+//    {
+//        _barriers[_randomValue].gameObject.SetActive(true);
+//        for (int i = 0; i < _barriers[_randomValue].transform.childCount; i++)
+//        {
+//            Transform child = _barriers[_randomValue].transform.GetChild(i);
+//            child.gameObject.SetActive(true);
+//        }
+//        _barriers[_randomValue].transform.position = new Vector2(_startPositionX, _barriers[_randomValue].transform.position.y);
+//    }
+//}

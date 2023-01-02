@@ -67,6 +67,11 @@
     <Compile Include="Assets\Scipts\Pumpkin.cs" />
     <Compile Include="Assets\Scipts\Parallax.cs" />
     <Compile Include="Assets\Scipts\PlayerMovements.cs" />
+    <Compile Include="Assets\Scipts\Shot.cs" />
+    <Compile Include="Assets\Scipts\MagicBall.cs" />
+    <Compile Include="Assets\Scipts\RotationObject.cs" />
+    <Compile Include="Assets\Scipts\Shield.cs" />
+    <Compile Include="Assets\Scipts\ShieldActivator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

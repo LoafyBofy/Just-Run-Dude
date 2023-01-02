@@ -15,7 +15,7 @@ public class FinalBoard : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Barrier")
+        if (collision.tag == "Barrier" || collision.tag == "MagicBarrier")
         {
             _isGameOnPause = true;
             CheckGameOnPause();
